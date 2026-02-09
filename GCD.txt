@@ -1,0 +1,26 @@
+LDA 2050H      ; Load first number
+MOV B,A        ; B = first number
+
+LDA 2051H      ; Load second number
+MOV C,A        ; C = second number
+
+LOOP: MOV A,B  ; A = B
+CMP C          ; Compare B and C
+JZ DONE        ; If B = C, GCD found
+
+JC SMALL       ; If B < C, go subtract B from C
+
+; If B > C
+MOV A,B
+SUB C
+MOV B,A
+JMP LOOP
+
+SMALL: MOV A,C
+SUB B
+MOV C,A
+JMP LOOP
+
+DONE: MOV A,B  ; GCD in B (or C)
+STA 2052H      ; Store GCD
+HLT

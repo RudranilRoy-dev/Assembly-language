@@ -1,0 +1,24 @@
+MVI D,09H        ; Outer loop count = 9 passes
+
+OUTER: LXI H,2050H   ; Start of array each pass
+MVI C,09H        ; Inner loop count = 9 comparisons
+
+INNER: MOV A,M       ; A = current element
+INX H            ; HL points to next element
+CMP M            ; Compare A with next element
+JC NOSWAP        ; If A < next, no swap
+
+; Swap
+MOV B,M          ; B = next element
+MOV M,A          ; next = current
+DCX H            ; back to previous element
+MOV M,B          ; current = next
+INX H            ; again move to next element
+
+NOSWAP: DCR C        ; Inner loop counter--
+JNZ INNER        ; Repeat inner loop
+
+DCR D            ; Outer loop counter--
+JNZ OUTER        ; Repeat outer loop
+
+HLT              ; Stop

@@ -1,0 +1,18 @@
+LXI H,2050H     ; Start address
+LXI D,2057H     ; End address
+MVI C,04H       ; 4 swaps
+
+LOOP: MOV A,M   ; A = (HL)    
+MOV B,A         ; B = (HL)
+LDAX D          ;A=(DE)
+
+MOV M,A         ; (HL)=A
+MOV A,B
+STAX D;
+
+INX H           ; HL++
+DCX D           ; DE--
+DCR C           ; count--
+JNZ LOOP
+
+HLT

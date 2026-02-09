@@ -1,0 +1,21 @@
+LDA 2050H      ; Load number N in A
+MOV B,A        ; B = N
+
+MVI C,01H      ; C = odd number (1)
+MVI D,00H      ; D = count (square root)
+
+LOOP: MOV A,B  ; A = current N
+SUB C          ; N = N - odd
+JC DONE        ; If borrow, stop
+
+MOV B,A        ; Store new N in B
+INR D          ; count++
+
+INR C          ; odd = odd + 2
+INR C
+
+JMP LOOP
+
+DONE: MOV A,D  ; A = square root
+STA 2051H      ; Store result
+HLT

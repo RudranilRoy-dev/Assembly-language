@@ -1,0 +1,18 @@
+LXI H,2050H     ; HL points to 2050H
+MOV C,M         ; C = N
+INX H           ; HL points to first element (2051H)
+
+MOV A,M         ; A = first element (largest)
+DCR C           ; Remaining elements = N-1
+INX H           ; Move to next element
+
+LOOP: CMP M     ; Compare A with current element
+JNC SKIP        ; If A >= M skip
+MOV A,M         ; Else A = M (new largest)
+
+SKIP: INX H     ; Next element
+DCR C           ; Decrease count
+JNZ LOOP        ; Repeat until count = 0
+
+STA 2060H       ; Store largest number
+HLT             ; Stop

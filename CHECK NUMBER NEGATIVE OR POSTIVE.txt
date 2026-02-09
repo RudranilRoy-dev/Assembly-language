@@ -1,0 +1,12 @@
+LDA 2050H      ; Load number in A
+RAL            ; MSB goes to Carry flag
+
+JNC POS        ; If Carry=0 -> Positive
+
+MVI A,01H      ; Negative
+STA 2051H
+HLT
+
+POS: MVI A,00H ; Positive
+STA 2051H
+HLT

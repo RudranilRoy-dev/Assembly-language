@@ -1,0 +1,18 @@
+LXI H,2050H     ; HL points to 2050H
+MOV C,M         ; C = N
+INX H           ; HL points to first element
+
+MOV A,M         
+DCR C           
+INX H           
+
+LOOP: CMP M     
+JC SKIP         
+MOV A,M         
+
+SKIP: INX H     
+DCR C           
+JNZ LOOP        
+
+STA 2060H       
+HLT             

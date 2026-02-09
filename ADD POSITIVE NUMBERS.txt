@@ -1,0 +1,21 @@
+LXI H,2050H     ; HL -> count
+MOV C,M         ; C = N
+INX H           ; HL -> first element
+
+MVI D,00H       ; D = sum = 0
+
+LOOP: MOV A,M   ; Load element
+RAL             ; MSB -> Carry
+JC SKIP         ; If Carry=1, negative
+
+MOV A,D         ; A = sum
+ADD M           ; sum = sum + element
+MOV D,A         ; store sum
+
+SKIP: INX H     ; next element
+DCR C           ; count--
+JNZ LOOP
+
+MOV A,D         ; final sum
+STA 2060H       ; store sum
+HLT
